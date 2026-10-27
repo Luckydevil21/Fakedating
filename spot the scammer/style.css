@@ -1,0 +1,142 @@
+/*
+  LAYOUT CONCEPT: a single phone-width "device" card centered on a soft paper
+  background. Every screen of the game lives inside that one card, like
+  looking at someone's actual phone — the thing this scam actually arrives on.
+*/
+:root{
+  --bg:#f6eef2; --paper:#fdf8f6; --card:#ffffff; --ink:#2a1738; --ink-dim:#6b5a78;
+  --line:#ecdfe6; --heart:#d6204f; --heart-dk:#9c1740; --gold:#e3a53f; --blush:#fde8ee;
+  --good:#1f8a4c; --good-bg:#e9f7ee; --bad:#b4232f; --bad-bg:#fdecee;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1220; --paper:#241829; --card:#2d1e33; --ink:#f3e9ee; --ink-dim:#c3aec2;
+    --line:#43304a; --heart:#ef5c82; --heart-dk:#ff8aa6; --gold:#e9b765; --blush:#3a2430;
+    --good:#4fd188; --good-bg:#17301f; --bad:#ff7b7b; --bad-bg:#3a1b1f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1220; --paper:#241829; --card:#2d1e33; --ink:#f3e9ee; --ink-dim:#c3aec2;
+  --line:#43304a; --heart:#ef5c82; --heart-dk:#ff8aa6; --gold:#e9b765; --blush:#3a2430;
+  --good:#4fd188; --good-bg:#17301f; --bad:#ff7b7b; --bad-bg:#3a1b1f;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Figtree",system-ui,-apple-system,sans-serif;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:28px;
+  min-height:100svh;
+  display:flex; align-items:flex-start; justify-content:center;
+}
+.serif{font-family:"Fraunces",Georgia,serif}
+.stage{
+  width:100%; max-width:430px; background:var(--paper);
+  border-radius:28px; box-shadow:0 30px 70px -30px rgba(42,23,56,.35);
+  border:1px solid var(--line); overflow:hidden; position:relative;
+}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px 10px; gap:10px;
+}
+.brand{font:italic 700 20px/1 "Fraunces",Georgia,serif; color:var(--heart); display:flex; align-items:center; gap:6px}
+.brand i{width:11px;height:11px;border-radius:50% 50% 50% 0;background:var(--heart);transform:rotate(-45deg)}
+.eyebrow{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim)}
+
+.screen{padding:0 20px 26px}
+.screen h1{font:600 26px/1.2 "Fraunces",Georgia,serif; margin:4px 0 10px}
+.lede{color:var(--ink-dim); font-size:16px; line-height:1.55; margin:0 0 20px}
+
+.btn{
+  font:inherit; font-weight:700; font-size:16px; border:0; border-radius:99px;
+  padding:14px 22px; cursor:pointer; width:100%; text-align:center;
+  background:var(--heart); color:#fff; transition:transform .15s ease, background .15s ease;
+}
+.btn:hover{background:var(--heart-dk)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--line)}
+.btn[hidden]{display:none!important}
+.btnrow{display:flex; flex-direction:column; gap:10px; margin-top:4px}
+
+/* ---- INTRO ---- */
+.intro-art{
+  margin:6px 0 20px; border-radius:20px; background:linear-gradient(160deg, var(--blush), var(--card));
+  border:1px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:10px;
+}
+.intro-art .count{font:700 46px/1 "Fraunces",Georgia,serif; color:var(--heart)}
+.intro-art .count-label{font-size:13px; color:var(--ink-dim)}
+.rules{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:10px}
+.rules li{display:flex; gap:10px; align-items:flex-start; font-size:15px; color:var(--ink)}
+.rules li b{flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:var(--blush); color:var(--heart-dk); font-size:13px; display:flex; align-items:center; justify-content:center}
+
+/* ---- PROFILE SCREEN ---- */
+.hud{display:flex; align-items:center; justify-content:space-between; margin:0 0 12px}
+.found{font-weight:700; font-size:14px; color:var(--ink)}
+.found b{color:var(--heart)}
+.timebar{height:8px; border-radius:99px; background:var(--line); overflow:hidden; flex:1; margin-left:14px}
+.timebar i{display:block; height:100%; background:var(--heart); border-radius:99px; transform-origin:left; transition:transform 1s linear}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:22px; overflow:hidden; box-shadow:0 10px 30px -18px rgba(42,23,56,.3)}
+.photo-wrap{position:relative; aspect-ratio:4/5; background:#111}
+.photo-wrap img{width:100%; height:100%; object-fit:cover; display:block}
+.meta{padding:16px 18px 6px}
+.meta h2{font:700 24px/1.15 "Fraunces",Georgia,serif; margin:0 0 6px}
+.badges{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.badge{display:inline-flex; align-items:center; gap:5px; background:var(--blush); color:var(--heart-dk); font-weight:700; font-size:12.5px; padding:3px 10px; border-radius:99px}
+.badge i{width:12px;height:12px;border-radius:50%;background:var(--heart)}
+.live{color:var(--good); font-weight:700; font-size:12.5px}
+.fine{color:var(--ink-dim); font-size:13.5px; margin:8px 0 0}
+.prompts{padding:4px 18px 18px; display:flex; flex-direction:column; gap:10px}
+.prompt{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
+.prompt h3{margin:0 0 4px; font:600 12px/1.2 "Figtree",sans-serif; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.04em}
+.prompt p{margin:0; font:600 17px/1.3 "Fraunces",Georgia,serif}
+
+.hot{position:relative; display:block; border-radius:14px; cursor:pointer; border:2px solid transparent}
+.hot .pin{display:none}
+.hot.found-flag{border-color:var(--good); cursor:default}
+.hot.found-flag .pin{
+  display:flex; position:absolute; top:-9px; right:-9px; width:26px; height:26px; border-radius:50%;
+  background:var(--good); color:#fff; font-weight:800; font-size:14px;
+  align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(0,0,0,.25);
+  animation:popin .25s ease;
+}
+.hot.found-flag .pin:after{content:"✓"}
+@keyframes popin{from{transform:scale(0)}to{transform:scale(1)}}
+
+.flagpanel{
+  margin-top:10px; background:var(--good-bg); border:1px solid var(--good); border-radius:14px;
+  padding:12px 14px; font-size:14.5px; line-height:1.5; color:var(--ink);
+  animation:slidein .25s ease;
+}
+.flagpanel b{color:var(--good)}
+@keyframes slidein{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:translateY(0)}}
+.reveal-link{display:block; text-align:center; margin-top:14px; font-size:14px; color:var(--ink-dim); background:none; border:0; text-decoration:underline; cursor:pointer; width:100%; font-family:inherit}
+.reveal-link[hidden]{display:none}
+
+/* ---- MESSAGE SCREEN ---- */
+.chat{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; display:flex; flex-direction:column; gap:10px}
+.bubble{background:var(--paper); border:1px solid var(--line); border-radius:16px 16px 16px 4px; padding:12px 14px; font-size:15.5px; line-height:1.5; max-width:88%}
+.bubble.who{font-weight:700; font-size:12.5px; color:var(--heart-dk); display:block; margin:0 0 4px}
+.choice-feedback{margin-top:14px; border-radius:14px; padding:14px; font-size:14.5px; line-height:1.55; animation:slidein .25s ease}
+.choice-feedback.good{background:var(--good-bg); border:1px solid var(--good); color:var(--ink)}
+.choice-feedback.bad{background:var(--bad-bg); border:1px solid var(--bad); color:var(--ink)}
+.choice-feedback b{display:block; margin-bottom:4px; font-size:15px}
+.choice-feedback.good b{color:var(--good)}
+.choice-feedback.bad b{color:var(--bad)}
+
+/* ---- SUMMARY ---- */
+.recap{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:10px}
+.recap li{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 14px; font-size:14.5px; line-height:1.5}
+.recap li b{display:block; color:var(--heart-dk); font-size:14px; margin-bottom:2px}
+.advice{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:10px}
+.advice li{display:flex; gap:10px; font-size:15px; line-height:1.5}
+.advice li:before{content:"→"; color:var(--heart); font-weight:800; flex:0 0 auto}
+.helpline{background:var(--blush); border-radius:16px; padding:16px 18px; margin:4px 0 22px}
+.helpline b{display:block; font:700 18px/1.3 "Fraunces",Georgia,serif; color:var(--heart-dk); margin-bottom:4px}
+.helpline span{font-size:14px; color:var(--ink-dim)}
+.foot{text-align:center; font-size:12px; color:var(--ink-dim); margin-top:6px}

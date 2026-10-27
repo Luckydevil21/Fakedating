@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spot the Scammer</title>
+<meta name="description" content="A 2-minute romance scam awareness game: find the red flags in a dating profile before someone asks you for money.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="topbar">
+    <span class="brand"><i></i>Spot the Scammer</span>
+    <span class="eyebrow" id="eyebrow">A 2-minute game</span>
+  </div>
+
+  <!-- SCREEN 1: INTRO -->
+  <section class="screen" id="screen-intro">
+    <h1>Could you spot him?</h1>
+    <p class="lede">This is a real-looking dating profile, built the way romance scammers actually build them. Find the warning signs before the night is out.</p>
+    <div class="intro-art">
+      <div class="count">6</div>
+      <div class="count-label">warning signs hidden in one profile</div>
+    </div>
+    <ul class="rules">
+      <li><b>1</b> Tap anything on the profile that doesn't sit right with you.</li>
+      <li><b>2</b> You've got 90 seconds to find all 6.</li>
+      <li><b>3</b> Then see what happens when "he" asks for money.</li>
+    </ul>
+    <div class="btnrow"><button class="btn" id="btn-start">Start</button></div>
+  </section>
+
+  <!-- SCREEN 2: PROFILE -->
+  <section class="screen" id="screen-profile" hidden>
+    <div class="hud">
+      <span class="found">Found: <b id="foundCount">0</b> / 6</span>
+      <div class="timebar"><i id="timeFill"></i></div>
+    </div>
+    <div class="card">
+      <div class="hot" id="hot-photo" data-flag="photo">
+        <span class="pin"></span>
+        <div class="photo-wrap"><img src="photo.jpg" alt="Profile photo"></div>
+      </div>
+      <div class="meta">
+        <div class="hot" id="hot-name" data-flag="name">
+          <span class="pin"></span>
+          <h2>Captain Daniel Reeves, 54</h2>
+        </div>
+        <div class="hot" id="hot-badge" data-flag="badge" style="display:inline-block; margin-top:2px">
+          <span class="pin"></span>
+          <span class="badges"><span class="badge"><i></i>Verified</span> <span class="live">● Active now</span></span>
+        </div>
+        <div class="hot" id="hot-fine" data-flag="fine">
+          <span class="pin"></span>
+          <p class="fine">Offshore engineer · Widower · Replies within minutes, any hour</p>
+        </div>
+      </div>
+      <div class="prompts">
+        <div class="prompt">
+          <h3>I'm looking for</h3><p>Something real, with someone honest.</p>
+        </div>
+        <div class="hot" id="hot-wifi" data-flag="wifi">
+          <span class="pin"></span>
+          <div class="prompt"><h3>I can't live without</h3><p>Good company. The rig wifi is not good company.</p></div>
+        </div>
+        <div class="hot" id="hot-alone" data-flag="alone">
+          <span class="pin"></span>
+          <div class="prompt"><h3>Message me if</h3><p>You are tired of being alone too.</p></div>
+        </div>
+      </div>
+    </div>
+    <div id="flagpanels"></div>
+    <button class="reveal-link" id="btn-reveal" hidden>Time's up — show me what I missed</button>
+    <div class="btnrow" style="margin-top:14px">
+      <button class="btn" id="btn-toMessage" hidden>Continue</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: THE ASK -->
+  <section class="screen" id="screen-message" hidden>
+    <h1>Three weeks later…</h1>
+    <p class="lede">You've been messaging every day. Then this arrives.</p>
+    <div class="chat">
+      <div class="bubble"><span class="who">Daniel · 11:42pm</span>My ship's been held at port over some paperwork. Customs want £450 before they'll release my gear and I can't reach my own account from out here. I hate asking you this. I don't have anyone else. Could you send it today? I'll pay you back the second I'm on land, I promise.</div>
+    </div>
+    <div class="btnrow" style="margin-top:16px">
+      <button class="btn" id="btn-send" data-choice="bad">Send the £450 — he needs help</button>
+      <button class="btn ghost" id="btn-stop" data-choice="good">Don't send money — stop and check</button>
+    </div>
+    <div id="choicePanel"></div>
+    <div class="btnrow" style="margin-top:16px">
+      <button class="btn" id="btn-toSummary" hidden>See the full picture</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 4: SUMMARY -->
+  <section class="screen" id="screen-summary" hidden>
+    <h1>The 6 signs</h1>
+    <ul class="recap">
+      <li><b>One flattering photo</b>Often a stolen or stock photo. Save it and reverse-image-search it before you trust it.</li>
+      <li><b>"Captain" / widower / offshore</b>A job and a backstory built to explain why he can never meet, call unexpectedly, or be checked up on.</li>
+      <li><b>A "Verified" badge</b>Verification usually just checks a selfie matches a photo — it proves nothing about who someone really is.</li>
+      <li><b>Replies within minutes, any hour</b>Real offshore workers have patchy signal. Constant availability from someone claiming isolation is a mismatch.</li>
+      <li><b>"The rig wifi is not good company"</b>A built-in, pre-loaded excuse for why video calls never quite work.</li>
+      <li><b>"Tired of being alone too"</b>Goes straight for loneliness. Real connection takes time; this is designed to feel instant.</li>
+    </ul>
+    <h1 style="margin-top:4px">What to actually do</h1>
+    <ul class="advice">
+      <li>Never send money, vouchers or gift cards to someone you've only met online — whatever the story.</li>
+      <li>Ask for a spontaneous video call. An excuse every single time is the tell.</li>
+      <li>Reverse-image-search their photo (Google Images → camera icon).</li>
+      <li>Tell a friend or family member early. Scammers work by asking you to keep it secret.</li>
+      <li>Trust the uneasy feeling. Moving fast and asking for money is the pattern, not the exception.</li>
+    </ul>
+    <div class="helpline">
+      <b>Already sent money?</b>
+      <span>Call your bank immediately, then report it to Action Fraud — 0300 123 2040 or actionfraud.police.uk. You won't be in trouble, and it helps stop them doing it to someone else.</span>
+    </div>
+    <div class="btnrow"><button class="btn" id="btn-again">Play again</button></div>
+    <p class="foot">A Recon1Studios awareness exercise. Daniel Reeves is a fictional character created for training.</p>
+  </section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
