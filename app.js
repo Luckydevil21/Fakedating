@@ -95,7 +95,50 @@
     $("btn-stop").style.display = "";
     $("choicePanel").innerHTML = "";
     $("btn-toSummary").hidden = true;
+    resetFeedback();
     show("intro");
+  });
+
+  // ---- Feedback: "how helpful was this?" 1-5 scale ----
+  // Fill these in once you've created the free Supabase project for this
+  // game (see the setup steps you were given). Until they're filled in,
+  // the thank-you still shows but nothing is recorded anywhere.
+  var FEEDBACK_SUPABASE_URL = "https://wpvlvlgjinndycyhosjo.supabase.co";       // e.g. "https://xxxxxxxx.supabase.co"
+  var FEEDBACK_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indwdmx2bGdqaW5uZHljeWhvc2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMDYyOTEsImV4cCI6MjEwODg4MjI5MX0.1Yp2bHjSo5TdIr8KXbZPc5mvdZ0kPmtQLGn1BII-zYo";  // Project Settings -> API -> "anon public" key
+
+  function resetFeedback() {
+    document.querySelectorAll("#fbScale .fb-btn").forEach(function (b) {
+      b.disabled = false;
+      b.classList.remove("fb-chosen");
+    });
+    $("fbThanks").hidden = true;
+  }
+
+  function submitFeedback(rating) {
+    document.querySelectorAll("#fbScale .fb-btn").forEach(function (b) {
+      b.disabled = true;
+      if (Number(b.getAttribute("data-rating")) === rating) b.classList.add("fb-chosen");
+    });
+    $("fbThanks").hidden = false;
+
+    if (!FEEDBACK_SUPABASE_URL || !FEEDBACK_SUPABASE_ANON_KEY) return; // not configured yet
+
+    fetch(FEEDBACK_SUPABASE_URL + "/rest/v1/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": FEEDBACK_SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + FEEDBACK_SUPABASE_ANON_KEY,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({ rating: rating })
+    }).catch(function () { /* best-effort; the thank-you already showed */ });
+  }
+
+  document.querySelectorAll("#fbScale .fb-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      submitFeedback(Number(btn.getAttribute("data-rating")));
+    });
   });
 
   show("intro");
